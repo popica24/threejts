@@ -9,6 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 export const prefersReducedMotion = () =>
   window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
+// Phone toolbars show/hide on scroll and fire resize; only re-measure for real layout changes.
+export function shouldRefreshOnResize(prev, next, coarse) {
+  if (!coarse || prev.w !== next.w) return true;
+  return Math.abs(prev.h - next.h) > 120;
+}
+
 export function createScroller({ sections, onProgress }) {
   const reduced = prefersReducedMotion();
   let tops = [];
@@ -16,7 +22,7 @@ export function createScroller({ sections, onProgress }) {
 
   // A chapter starts when its section's top crosses the middle of the viewport.
   const measure = () => {
-    const lead = innerHeight * 0.5;
+    const lead = document.documentElement.clientHeight * 0.5;
     tops = sections.map((s, i) => (i === 0 ? 0 : Math.max(0, s.getBoundingClientRect().top + scrollY - lead)));
     max = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
   };
@@ -33,7 +39,15 @@ export function createScroller({ sections, onProgress }) {
     addEventListener('scroll', () => emit(), { passive: true });
   }
 
-  const onResize = () => { measure(); ScrollTrigger.refresh(); emit(); };
+  const coarse = window.matchMedia?.('(pointer: coarse)').matches ?? false;
+  let size = { w: innerWidth, h: innerHeight };
+  const refresh = () => { measure(); ScrollTrigger.refresh(); emit(); };
+  const onResize = () => {
+    const next = { w: innerWidth, h: innerHeight };
+    const go = shouldRefreshOnResize(size, next, coarse);
+    size = next;
+    if (go) refresh();
+  };
   addEventListener('resize', onResize);
   ScrollTrigger.addEventListener('refresh', () => { measure(); emit(); });
 
@@ -66,7 +80,7 @@ export function createScroller({ sections, onProgress }) {
   return {
     scrollToChapter,
     scrollToProgress,
-    refresh: onResize,
+    refresh,
     destroy() {
       removeEventListener('resize', onResize);
       document.removeEventListener('click', onClick);

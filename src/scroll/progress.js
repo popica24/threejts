@@ -10,6 +10,9 @@ export const CHAPTER_RANGES = {
   contact: [0.88, 1],
 };
 
+// Slice of progress during which the crew mounts the panels (inside 'montaj').
+export const PANEL_WINDOW = [0.28, 0.46];
+
 const IDS = Object.keys(CHAPTER_RANGES);
 const RANGES = Object.values(CHAPTER_RANGES);
 
@@ -48,4 +51,14 @@ export function scrollForProgress(p, tops, max) {
   const [a, b] = RANGES[i];
   const end = i < tops.length - 1 ? tops[i + 1] : max;
   return tops[i] + (end - tops[i]) * ((x - a) / (b - a));
+}
+
+// Which of the 5 process steps is lit: calculate/offer before the crew starts,
+// "Montăm" while panels go up, commission/prosumer once the roof is done.
+export function activeStep(p) {
+  const [m0, m1] = CHAPTER_RANGES.montaj;
+  const [a, b] = PANEL_WINDOW;
+  if (p < a) return local(p, [m0, a]) < 0.5 ? 0 : 1;
+  if (p < b) return 2;
+  return local(p, [b, m1]) < 0.5 ? 3 : 4;
 }

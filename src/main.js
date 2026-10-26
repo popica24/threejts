@@ -4,6 +4,7 @@ import './styles/ui.css';
 import content from './content.js';
 import { CREDIT, detectQuality } from './config.js';
 import { createStage } from './three/stage.js';
+import { bootStage } from './three/boot.js';
 import { renderChapters } from './dom/chapters.js';
 import { createLoader } from './ui/loader.js';
 import { createRail } from './ui/rail.js';
@@ -12,7 +13,7 @@ import { initMagnetic } from './ui/magnetic.js';
 import { initTilt } from './ui/tilt.js';
 import { splitReveal, revealPanels } from './ui/splitReveal.js';
 import { createScroller } from './scroll/scroller.js';
-import { CHAPTER_RANGES, local } from './scroll/progress.js';
+import { CHAPTER_RANGES, activeStep } from './scroll/progress.js';
 
 // The story is ~10 screens long; each chapter's height follows its share of the progress range.
 const STORY_VH = 1000;
@@ -33,10 +34,10 @@ const scroller = createScroller({
   onProgress(p) {
     state.p = p;
     rail?.update(p);
-    const k = local(p, CHAPTER_RANGES.montaj) * steps.length;
+    const s = activeStep(p);
     steps.forEach((el, i) => {
-      el.classList.toggle('is-active', k >= i && k < i + 1);
-      el.classList.toggle('is-past', k >= i + 1);
+      el.classList.toggle('is-active', i === s);
+      el.classList.toggle('is-past', i < s);
     });
   },
 });
@@ -49,10 +50,10 @@ if (import.meta.env.DEV) {
 
 const quality = detectQuality();
 document.documentElement.dataset.quality = quality;
-createStage(document.getElementById('gl'), quality, {
+bootStage(() => createStage(document.getElementById('gl'), quality, {
   getProgress: () => state.p,
   onLoad: (v) => loader.setProgress(v),
-}).then((stage) => {
+}), (stage) => {
   if (!stage) document.documentElement.classList.add('no-webgl');
   loader.done();
   scroller.refresh();

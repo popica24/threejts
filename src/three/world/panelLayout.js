@@ -1,8 +1,7 @@
 // Pure layout + schedule for the rooftop panels.
-import { easeInOut, local } from '../../scroll/progress.js';
+import { easeInOut, local, PANEL_WINDOW } from '../../scroll/progress.js';
 
-// Slice of global progress during which the crew mounts the panels (inside the 'montaj' chapter).
-export const PANEL_WINDOW = [0.28, 0.46];
+export { PANEL_WINDOW };
 
 // Slot centres on the roof plane; bottom row first, each row left → right.
 export function roofSlots(cols, rows, roof) {

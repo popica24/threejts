@@ -5,6 +5,12 @@ import {
 
 export const clampDt = (dt) => Math.min(dt, 0.1);
 
+// Size from the canvas box (100lvh on phones), so the picture isn't stretched while the toolbar shows.
+export const viewportSize = (canvas) => ({
+  w: canvas.clientWidth || innerWidth,
+  h: canvas.clientHeight || innerHeight,
+});
+
 export function createRenderer(canvas, quality) {
   let renderer;
   try {
@@ -25,7 +31,7 @@ export function createRenderer(canvas, quality) {
   let raf = 0;
   let renderFn = () => renderer.render(scene, camera);
 
-  function resize(w = innerWidth, h = innerHeight) {
+  function resize({ w, h } = viewportSize(canvas)) {
     renderer.setPixelRatio(Math.min(devicePixelRatio, maxDpr));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;

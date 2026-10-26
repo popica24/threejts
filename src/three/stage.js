@@ -1,6 +1,6 @@
 // Builds the renderer and the world, then drives every module from the shared progress value.
 import { Vector3 } from 'three';
-import { createRenderer } from './renderer.js';
+import { createRenderer, viewportSize } from './renderer.js';
 import { createPost } from './post.js';
 import { sampleCamera } from './cameraPath.js';
 import { paletteAt } from './palette.js';
@@ -64,7 +64,8 @@ export async function createStage(canvas, quality, { getProgress, onLoad = () =>
   });
 
   if (quality === 'high') {
-    const post = createPost(renderer, innerWidth, innerHeight);
+    const { w, h } = viewportSize(canvas);
+    const post = createPost(renderer, w, h);
     gl.onResize((w, h) => post.resize(w, h));
     gl.setRender(() => post.render(scene, camera));
   }
