@@ -2,7 +2,8 @@ import './styles/base.css';
 import './styles/chapters.css';
 import './styles/ui.css';
 import content from './content.js';
-import { CREDIT } from './config.js';
+import { CREDIT, detectQuality } from './config.js';
+import { createStage } from './three/stage.js';
 import { renderChapters } from './dom/chapters.js';
 import { createLoader } from './ui/loader.js';
 import { createRail } from './ui/rail.js';
@@ -39,5 +40,13 @@ rail = createRail(document.getElementById('rail'), scroller);
 rail.update(state.p);
 window.__story = state; // dev inspection
 
-loader.setProgress(1);
-loader.done();
+const quality = detectQuality();
+document.documentElement.dataset.quality = quality;
+createStage(document.getElementById('gl'), quality, {
+  getProgress: () => state.p,
+  onLoad: (v) => loader.setProgress(v),
+}).then((stage) => {
+  if (!stage) document.documentElement.classList.add('no-webgl');
+  loader.done();
+  scroller.refresh();
+});

@@ -28,6 +28,14 @@
 .chapter--contact .panel { position: relative; top: 0; width: min(720px, 100%); text-align: center; }
 
 .chapter--hero { align-items: center; }
+.chapter--hero::before {
+  content: '';
+  position: absolute;
+  inset: 0 30% 0 0;
+  background: radial-gradient(ellipse 85% 70% at 18% 50%, rgba(255, 240, 228, 0.78), rgba(255, 240, 228, 0) 72%);
+  pointer-events: none;
+}
+.chapter--hero .panel { z-index: 1; }
 .chapter--hero .panel {
   position: relative;
   top: 0;
@@ -135,4 +143,5 @@
   .chapter--montaj .step { padding: 8px 10px; }
   .chapter--montaj .step p { display: none; }
   .brand img { height: 38px; }
+  .chapter--casa .cards, .chapter--stocare .card { display: none; }
 }

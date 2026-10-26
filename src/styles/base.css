@@ -107,7 +107,7 @@ a { color: inherit; }
 .btn:hover { background: #fff; box-shadow: 0 10px 30px -12px rgba(13, 36, 64, 0.45); }
 .btn--primary { background: var(--sun); border-color: transparent; color: var(--navy-deep); }
 .btn--primary:hover { background: var(--sun-soft); }
-.btn--ghost { background: transparent; border-color: rgba(23, 59, 99, 0.25); }
+.btn--ghost { background: rgba(255, 255, 255, 0.45); border-color: rgba(255, 255, 255, 0.55); }
 .btn--small { padding: 10px 18px; font-size: 14px; }
 .btn--big { padding: 20px 34px; font-size: 18px; }
 :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
