@@ -54,7 +54,7 @@ export async function createStage(canvas, quality, { getProgress, onLoad = () =>
   gl.onFrame((dt, time) => {
     const p = getProgress();
     for (const m of modules) m.update(p, time);
-    sampleCamera(p, cam);
+    sampleCamera(p, cam, { portrait: camera.userData.portrait });
     pointer.sx += (pointer.x - pointer.sx) * Math.min(dt * 3, 1);
     pointer.sy += (pointer.y - pointer.sy) * Math.min(dt * 3, 1);
     right.subVectors(cam.look, cam.pos).cross(camera.up).normalize();

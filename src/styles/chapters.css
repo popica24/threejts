@@ -135,6 +135,10 @@
   .chapter { justify-content: stretch !important; }
   .panel { top: auto; bottom: 16px; margin: 55vh 0 16px; position: sticky; align-self: flex-end; }
   .chapter--hero .panel { margin: 0; }
+  .chapter--hero::before {
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 240, 228, 0) 22%, rgba(255, 240, 228, 0.86) 52%, rgba(255, 240, 228, 0.7) 100%);
+  }
   .chapter--scala .panel, .chapter--contact .panel { margin-top: 30vh; }
   .cards--split, .tiles, .contact { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: repeat(2, 1fr); }

@@ -29,8 +29,13 @@ export function createRenderer(canvas, quality) {
     renderer.setPixelRatio(Math.min(devicePixelRatio, maxDpr));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // Keep the house framed on tall phone screens.
-    camera.fov = w / h < 0.8 ? 58 : 42;
+    // Tall phone screens: wider lens, and the subject lifted into the upper part of the frame
+    // (the text cards sit at the bottom there).
+    const portrait = w / h < 0.8;
+    camera.fov = portrait ? 72 : 42;
+    if (portrait) camera.setViewOffset(w, h * 1.35, 0, h * 0.35, w, h);
+    else camera.clearViewOffset();
+    camera.userData.portrait = portrait;
     camera.updateProjectionMatrix();
     for (const cb of resizers) cb(w, h);
   }

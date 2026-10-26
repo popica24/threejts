@@ -25,3 +25,14 @@ describe('sampleCamera', () => {
     expect(sampleCamera(0.1).pos.equals(a)).toBe(true);
   });
 });
+
+describe('sampleCamera on portrait screens', () => {
+  it('looks straight at the house during the montage', () => {
+    const { look } = sampleCamera(mid(CHAPTER_RANGES.montaj), undefined, { portrait: true });
+    expect(Math.hypot(look.x - 1, look.z - 1.5)).toBeLessThan(2.5);
+  });
+  it('keeps the desktop look target otherwise', () => {
+    const a = sampleCamera(0.36).look.clone();
+    expect(sampleCamera(0.36, undefined, { portrait: false }).look.equals(a)).toBe(true);
+  });
+});
