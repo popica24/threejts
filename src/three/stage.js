@@ -10,6 +10,7 @@ import { createHouse } from './world/house.js';
 import { createPanels } from './world/panels.js';
 import { createCrew } from './world/crew.js';
 import { createEnergy } from './world/energy.js';
+import { createIndustrial } from './world/industrial.js';
 
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r()));
 
@@ -28,6 +29,7 @@ export async function createStage(canvas, quality, { getProgress, onLoad = () =>
     () => (world.panels = createPanels(scene, world.house.roof)),
     () => (world.crew = createCrew(scene, quality, { slots: world.panels.slots, panels: world.panels })),
     () => createEnergy(scene, world.house.roof, world.house.windows),
+    () => createIndustrial(scene, quality, world.panels),
     () => createParticles(scene, quality),
   ];
   const modules = [];

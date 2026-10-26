@@ -85,3 +85,19 @@ describe('scrollForProgress', () => {
     }
   });
 });
+
+import { rowRise } from '../src/three/world/industrial.js';
+
+describe('rowRise', () => {
+  const n = 8;
+  it('starts flat and ends fully raised', () => {
+    expect(rowRise(0, 0.62, n)).toBe(0);
+    expect(rowRise(n - 1, 0.78, n)).toBe(1);
+  });
+  it('raises earlier rows first', () => {
+    for (let k = 0; k <= 40; k++) {
+      const p = 0.62 + k * 0.004;
+      for (let r = 1; r < n; r++) expect(rowRise(r - 1, p, n)).toBeGreaterThanOrEqual(rowRise(r, p, n));
+    }
+  });
+});

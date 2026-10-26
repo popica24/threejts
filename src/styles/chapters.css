@@ -23,7 +23,7 @@
   box-shadow: 0 30px 80px -40px rgba(13, 36, 64, 0.45);
 }
 .chapter--casa, .chapter--stocare, .chapter--dece { justify-content: flex-end; padding-right: calc(var(--gutter) + 34px); }
-.chapter--scala .panel { position: relative; top: 0; width: min(980px, 100%); margin-inline: auto; }
+.chapter--scala .panel { position: relative; top: 0; width: min(620px, 100%); }
 .chapter--contact { flex-direction: column; justify-content: center; }
 .chapter--contact .panel { position: relative; top: 0; width: min(640px, 100%); margin-bottom: 0; }
 
@@ -112,7 +112,8 @@
 .tile p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 .tile__meta { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); }
 .tile--claim h3::before { content: ''; display: block; width: 26px; height: 26px; margin-bottom: 12px; border-radius: 50%; background: radial-gradient(circle, var(--sun) 45%, transparent 47%), conic-gradient(from 0deg, var(--sun) 0 8%, transparent 0 17%, var(--sun) 0 25%, transparent 0 33%, var(--sun) 0 42%, transparent 0 50%, var(--sun) 0 58%, transparent 0 67%, var(--sun) 0 75%, transparent 0 83%, var(--sun) 0 92%, transparent 0); }
-.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+.projects { display: grid; gap: 10px; margin-top: 12px; }
+.tile--project { padding: 14px 18px; }
 .tile--project:first-child { grid-column: 1 / -1; background: var(--navy); }
 .tile--project:first-child h3, .tile--project:first-child p, .tile--project:first-child .tile__meta { color: var(--paper); }
 .tile--project:first-child .tile__meta { color: var(--sun); }
