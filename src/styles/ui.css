@@ -1,0 +1,53 @@
+/* Progress rail */
+.rail {
+  position: fixed;
+  right: calc(var(--gutter) - 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: grid;
+  gap: 16px;
+  padding: 6px 0;
+}
+.rail::before, .rail__fill {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.rail__fill { background: var(--sun); transform-origin: top; transform: scaleY(0); }
+.rail__mark {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: rgba(23, 59, 99, 0.55);
+  cursor: pointer;
+  transition: transform 0.35s var(--ease), background 0.3s;
+}
+.rail__mark[aria-current] { background: var(--sun); transform: scale(1.35); }
+.rail__label {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translate(6px, -50%);
+  white-space: nowrap;
+  font: 600 12px/1 'Onest', sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--navy-deep);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 10px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.4s var(--ease);
+}
+.rail__mark:hover .rail__label, .rail__mark[aria-current] .rail__label { opacity: 1; transform: translate(0, -50%); }
+.rail__mark:not(:hover):not([aria-current]) .rail__label { opacity: 0; }
+@media (max-width: 760px) { .rail { display: none; } }

@@ -7,9 +7,7 @@ const [url, out, size = '1440x900', ...ps] = process.argv.slice(2);
 const [width, height] = size.split('x').map(Number);
 mkdirSync(out, { recursive: true });
 
-let browser;
-try { browser = await chromium.launch({ args: ['--use-angle=metal', '--enable-gpu'] }); }
-catch { browser = await chromium.launch({ channel: 'chrome' }); }
+const browser = await chromium.launch({ channel: 'chrome', args: ['--enable-gpu', '--ignore-gpu-blocklist'] });
 const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
 const logs = [];
 page.on('console', (m) => logs.push(`[${m.type()}] ${m.text()}`));

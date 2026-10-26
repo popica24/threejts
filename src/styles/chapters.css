@@ -3,8 +3,7 @@
 
 .chapter {
   position: relative;
-  min-height: 100vh;
-  height: var(--h, auto);
+  min-height: max(100vh, var(--h, 100vh));
   padding: 0 var(--gutter);
   display: flex;
   align-items: flex-start;
