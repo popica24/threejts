@@ -7,6 +7,10 @@ import { createStage } from './three/stage.js';
 import { renderChapters } from './dom/chapters.js';
 import { createLoader } from './ui/loader.js';
 import { createRail } from './ui/rail.js';
+import { initCursor } from './ui/cursor.js';
+import { initMagnetic } from './ui/magnetic.js';
+import { initTilt } from './ui/tilt.js';
+import { splitReveal, revealPanels } from './ui/splitReveal.js';
 import { createScroller } from './scroll/scroller.js';
 import { CHAPTER_RANGES, local } from './scroll/progress.js';
 
@@ -49,4 +53,16 @@ createStage(document.getElementById('gl'), quality, {
   if (!stage) document.documentElement.classList.add('no-webgl');
   loader.done();
   scroller.refresh();
+  initInteractions();
 });
+
+function initInteractions() {
+  initCursor(document.getElementById('cursor'));
+  initMagnetic();
+  initTilt('.card');
+  for (const h of document.querySelectorAll('[data-reveal]')) {
+    const hero = h.closest('[data-chapter="hero"]');
+    splitReveal(h, { immediate: !!hero, trigger: h.closest('.panel') });
+  }
+  revealPanels(sections);
+}

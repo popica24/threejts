@@ -51,3 +51,46 @@
 .rail__mark:hover .rail__label, .rail__mark[aria-current] .rail__label { opacity: 1; transform: translate(0, -50%); }
 .rail__mark:not(:hover):not([aria-current]) .rail__label { opacity: 0; }
 @media (max-width: 760px) { .rail { display: none; } }
+
+/* Custom cursor (desktop only; html.has-cursor is set by initCursor) */
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  pointer-events: none;
+  display: none;
+}
+.has-cursor .cursor { display: block; }
+.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .card { cursor: none; }
+.cursor::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sun);
+  box-shadow: 0 0 0 1.5px rgba(13, 36, 64, 0.6);
+  opacity: 0;
+  transition: transform 0.45s var(--ease), opacity 0.3s, background 0.3s;
+}
+.cursor.is-visible::before { opacity: 1; }
+.cursor.is-hover::before { transform: scale(3.2); background: rgba(245, 194, 27, 0.35); box-shadow: 0 0 0 1px rgba(245, 194, 27, 0.9); }
+.cursor.has-label::before { transform: scale(5.4); background: var(--sun); box-shadow: none; }
+.cursor.is-down::before { transform: scale(0.7); }
+.cursor__label {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0.6);
+  white-space: nowrap;
+  font: 700 12px/1 'Onest', sans-serif;
+  color: var(--navy-deep);
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.45s var(--ease);
+}
+.cursor.has-label .cursor__label { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* Word reveal */
+.word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.word > span { display: inline-block; will-change: transform; }
