@@ -6,6 +6,8 @@ import { paletteAt } from './palette.js';
 import { createSky } from './world/sky.js';
 import { createTerrain } from './world/terrain.js';
 import { createParticles } from './world/particles.js';
+import { createHouse } from './world/house.js';
+import { createPanels } from './world/panels.js';
 
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r()));
 
@@ -15,9 +17,13 @@ export async function createStage(canvas, quality, { getProgress, onLoad = () =>
   const { scene, camera, renderer } = gl;
 
   // Build step by step so the loader can show real progress.
+  // Each builder may read what earlier ones put on `world` (e.g. the roof frame).
+  const world = {};
   const builders = [
-    () => createSky(scene, quality),
+    () => (world.sky = createSky(scene, quality)),
     () => createTerrain(scene, quality),
+    () => (world.house = createHouse(scene)),
+    () => (world.panels = createPanels(scene, world.house.roof)),
     () => createParticles(scene, quality),
   ];
   const modules = [];
@@ -54,5 +60,5 @@ export async function createStage(canvas, quality, { getProgress, onLoad = () =>
   await nextFrame();
   onLoad(1);
 
-  return { ...gl, modules, add: (m) => modules.push(m) };
+  return { ...gl, world, modules };
 }
