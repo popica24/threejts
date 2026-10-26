@@ -16,6 +16,7 @@ await page.goto(url, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2500);
 for (const p of ps.length ? ps : ['0']) {
   await page.evaluate((p) => {
+    if (window.__goto) return window.__goto(Number(p)); // dev server: exact story progress
     const max = document.documentElement.scrollHeight - innerHeight;
     window.scrollTo(0, max * Number(p));
   }, p);

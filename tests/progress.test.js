@@ -59,3 +59,29 @@ describe('progressFromLayout', () => {
     for (let y = 0; y <= max; y += 37) { const p = progressFromLayout(y, tops, max); expect(p).toBeGreaterThanOrEqual(prev); prev = p; }
   });
 });
+
+import { energyIntensity } from '../src/three/world/energy.js';
+
+describe('energyIntensity', () => {
+  it('is off before storage and full at its end', () => {
+    expect(energyIntensity(0.49)).toBe(0);
+    expect(energyIntensity(0.62)).toBe(1);
+  });
+  it('rises monotonically through the storage chapter', () => {
+    let prev = 0;
+    for (let k = 0; k <= 60; k++) { const v = energyIntensity(0.5 + k * 0.002); expect(v).toBeGreaterThanOrEqual(prev); prev = v; }
+  });
+  it('stays on for the rest of the story', () => expect(energyIntensity(0.95)).toBe(1));
+});
+
+import { scrollForProgress } from '../src/scroll/progress.js';
+
+describe('scrollForProgress', () => {
+  const tops = [0, 900, 2000, 4500, 5600, 7800, 8700];
+  const max = 9400;
+  it('inverts progressFromLayout', () => {
+    for (const p of [0, 0.05, 0.22, 0.36, 0.57, 0.7, 0.95, 1]) {
+      expect(progressFromLayout(scrollForProgress(p, tops, max), tops, max)).toBeCloseTo(p, 6);
+    }
+  });
+});

@@ -42,7 +42,10 @@ const scroller = createScroller({
 });
 rail = createRail(document.getElementById('rail'), scroller);
 rail.update(state.p);
-window.__story = state; // dev inspection
+if (import.meta.env.DEV) {
+  window.__story = state;
+  window.__goto = (p) => scroller.scrollToProgress(p, true);
+}
 
 const quality = detectQuality();
 document.documentElement.dataset.quality = quality;

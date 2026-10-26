@@ -22,7 +22,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   box-shadow: 0 30px 80px -40px rgba(13, 36, 64, 0.45);
 }
-.chapter--casa, .chapter--dece { justify-content: flex-end; }
+.chapter--casa, .chapter--stocare, .chapter--dece { justify-content: flex-end; padding-right: calc(var(--gutter) + 34px); }
 .chapter--scala .panel { position: relative; top: 0; width: min(980px, 100%); margin-inline: auto; }
 .chapter--contact { flex-direction: column; justify-content: center; }
 .chapter--contact .panel { position: relative; top: 0; width: min(640px, 100%); margin-bottom: 0; }

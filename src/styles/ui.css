@@ -48,8 +48,7 @@
   pointer-events: none;
   transition: opacity 0.3s, transform 0.4s var(--ease);
 }
-.rail__mark:hover .rail__label, .rail__mark[aria-current] .rail__label { opacity: 1; transform: translate(0, -50%); }
-.rail__mark:not(:hover):not([aria-current]) .rail__label { opacity: 0; }
+.rail__mark:hover .rail__label, .rail__mark:focus-visible .rail__label { opacity: 1; transform: translate(0, -50%); }
 @media (max-width: 760px) { .rail { display: none; } }
 
 /* Custom cursor (desktop only; html.has-cursor is set by initCursor) */

@@ -2,7 +2,7 @@
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { progressFromLayout } from './progress.js';
+import { progressFromLayout, scrollForProgress } from './progress.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,8 +57,15 @@ export function createScroller({ sections, onProgress }) {
   measure();
   emit();
 
+  const scrollToProgress = (p, immediate = false) => {
+    const y = scrollForProgress(p, tops, max);
+    if (lenis) lenis.scrollTo(y, { immediate, force: true });
+    else scrollTo(0, y);
+  };
+
   return {
     scrollToChapter,
+    scrollToProgress,
     refresh: onResize,
     destroy() {
       removeEventListener('resize', onResize);

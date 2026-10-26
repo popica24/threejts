@@ -39,3 +39,13 @@ export function progressFromLayout(y, tops, max) {
   const [a, b] = RANGES[i];
   return a + (b - a) * clamp01((y - tops[i]) / span);
 }
+
+// Inverse of progressFromLayout: the scroll position that shows progress p.
+export function scrollForProgress(p, tops, max) {
+  const x = clamp01(p);
+  let i = RANGES.findIndex(([, b]) => x < b);
+  if (i === -1) i = RANGES.length - 1;
+  const [a, b] = RANGES[i];
+  const end = i < tops.length - 1 ? tops[i + 1] : max;
+  return tops[i] + (end - tops[i]) * ((x - a) / (b - a));
+}

@@ -9,7 +9,7 @@ export const CAMERA_KEYS = [
   { p: 0.22, pos: [27, 9, 31], look: [-2, 3.5, 3] },   // the crew arrives
   { p: 0.36, pos: [18, 13.5, 25], look: [-4, 4.5, 1] }, // panels going up
   { p: 0.5, pos: [8, 12, 26], look: [-2, 4.5, 0] },    // finished roof
-  { p: 0.56, pos: [-17, 5, 13], look: [-3, 3, 0] },    // inverter + battery wall
+  { p: 0.56, pos: [-16, 4.5, 9], look: [-1, 2.6, -1.5] }, // inverter + battery wall
   { p: 0.62, pos: [-6, 22, 46], look: [30, 2, -20] },  // rising up
   { p: 0.7, pos: [48, 34, 46], look: [100, 0, -40] },  // commercial & industrial
   { p: 0.8, pos: [70, 52, 80], look: [70, 0, -30] },   // wide over everything
