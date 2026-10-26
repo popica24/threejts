@@ -4,6 +4,7 @@ import { panelWindow, PANEL_WINDOW } from './panelLayout.js';
 import { roofFrame } from './house.js';
 
 export const CREW_SIZE = 4;
+const FINALE = 0.88;
 
 // ---------------------------------------------------------------- poses
 
@@ -79,7 +80,7 @@ function defaultSite() {
     roofEntry: v3(roof.origin.clone().addScaledVector(roof.right, 10.4 + 0.6).addScaledVector(roof.down, roof.height - 0.2)),
     roof,
     finale: [[2.6, 0, 8.2], [5.2, 0, 7.4]],
-    camera: [20, 9, 36],
+    camera: [24, 8, 33],
   };
 }
 const SITE = defaultSite();
@@ -171,6 +172,11 @@ export function crewPlan(p, slots, site = SITE) {
       if (p >= back[0] && p < back[1]) return returning(k, i, local(p, back), slots, site);
     }
     if (p >= done && p < done + 0.04) return idle(k, p, site, 'wave');
+    // Finale: two installers stand by the house and wave goodbye.
+    if (p >= FINALE && k < site.finale.length) {
+      const pos = site.finale[k];
+      return { id: k, pos, yaw: yawTo(pos, site.camera), kind: 'wave', t: p * 40 + k * 0.5, carrying: null, place: 0 };
+    }
     return idle(k, p, site);
   });
 }

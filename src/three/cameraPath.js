@@ -14,7 +14,7 @@ export const CAMERA_KEYS = [
   { p: 0.7, pos: [48, 34, 46], look: [100, 0, -40] },  // commercial & industrial
   { p: 0.8, pos: [70, 52, 80], look: [70, 0, -30] },   // wide over everything
   { p: 0.88, pos: [40, 22, 64], look: [10, 6, 0] },    // drifting back home
-  { p: 1.0, pos: [20, 9, 36], look: [0, 5, 0] },       // golden finale
+  { p: 1.0, pos: [24, 8, 33], look: [-7, 5.5, 2] },    // golden finale
 ];
 
 const curve = new CatmullRomCurve3(CAMERA_KEYS.map((k) => new Vector3(...k.pos)), false, 'centripetal');

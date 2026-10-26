@@ -64,4 +64,11 @@ describe('crewPlan', () => {
   it('keeps feet on the ground or the roof (never below ground)', () => {
     for (let k = 0; k <= 200; k++) for (const m of crewPlan(k / 200, slots)) expect(m.pos[1]).toBeGreaterThanOrEqual(0);
   });
+
+  it('has two installers waving by the house in the finale', () => {
+    const plan = crewPlan(0.95, slots);
+    const wavers = plan.filter((m) => m.kind === 'wave');
+    expect(wavers.length).toBeGreaterThanOrEqual(2);
+    for (const m of wavers) expect(Math.hypot(m.pos[0], m.pos[2])).toBeLessThan(12);
+  });
 });

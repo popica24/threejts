@@ -24,8 +24,8 @@
 }
 .chapter--casa, .chapter--dece { justify-content: flex-end; }
 .chapter--scala .panel { position: relative; top: 0; width: min(980px, 100%); margin-inline: auto; }
-.chapter--contact { justify-content: center; align-items: center; flex-direction: column; }
-.chapter--contact .panel { position: relative; top: 0; width: min(720px, 100%); text-align: center; }
+.chapter--contact { flex-direction: column; justify-content: center; }
+.chapter--contact .panel { position: relative; top: 0; width: min(640px, 100%); margin-bottom: 0; }
 
 .chapter--hero { align-items: center; }
 .chapter--hero::before {
@@ -61,15 +61,12 @@
   gap: 10px;
 }
 .kicker::before { content: ''; width: 22px; height: 2px; background: var(--sun); border-radius: 2px; }
-.chapter--contact .kicker { justify-content: center; }
 
 .title { margin: 0 0 16px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.04; font-size: clamp(30px, 3.6vw, 50px); color: var(--navy-deep); text-wrap: balance; }
 .title--hero { font-size: clamp(42px, 7vw, 96px); line-height: 0.98; font-weight: 800; }
 .lead { margin: 0 0 14px; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.55; color: var(--ink-soft); max-width: 52ch; }
-.chapter--contact .lead { margin-inline: auto; }
 
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0; }
-.chapter--contact .actions { justify-content: center; }
 
 .badges { list-style: none; padding: 0; margin: 34px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .badges li { padding: 10px 16px; border-radius: 14px; background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(8px); display: grid; font-size: 13px; }
@@ -130,7 +127,7 @@
 .contact a { text-decoration: none; display: inline-block; }
 .contact a:hover { color: var(--navy); text-decoration: underline; text-decoration-color: var(--sun); text-underline-offset: 4px; }
 
-.footer { width: min(720px, 100%); padding: 22px 0 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35); }
+.footer { width: min(640px, 100%); padding: 22px 0 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35); }
 .footer p { margin: 0; }
 
 @media (max-width: 760px) {
