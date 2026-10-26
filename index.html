@@ -3,9 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JTS Solar</title>
+    <title>JTS Solar — Mai multă energie de la soare</title>
+    <meta name="description" content="Sisteme fotovoltaice la cheie, în toată România. Concept interactiv pentru JTS SOLAR." />
+    <link rel="icon" href="/img/logo-jts.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <div class="sky-fallback" aria-hidden="true"></div>
+
+    <div id="loader" role="status" aria-live="polite">
+      <img src="/img/logo-wide.png" alt="JTS Instal Construct" class="loader__logo" />
+      <p class="loader__label">Ridicăm panourile… 0%</p>
+      <div class="loader__bar"><span></span></div>
+    </div>
+
+    <header class="topbar">
+      <a href="#hero" class="brand" aria-label="JTS SOLAR — început"><img src="/img/logo-wide.png" alt="JTS Instal Construct" /></a>
+      <a href="#contact" class="btn btn--small" data-magnetic>0771 504 694</a>
+    </header>
+
+    <nav id="rail" class="rail" aria-label="Capitole"></nav>
+    <div id="cursor" class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+    <main id="chapters"></main>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
