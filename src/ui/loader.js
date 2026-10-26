@@ -1,4 +1,4 @@
-// Full-screen loader: "Ridicăm panourile… NN%", then fades out.
+// Full-screen loader: logo + "NN%", then fades out.
 
 export function createLoader(el) {
   const label = el.querySelector('.loader__label') ?? el;
@@ -7,7 +7,7 @@ export function createLoader(el) {
   return {
     setProgress(v) {
       shown = Math.max(shown, Math.round(Math.min(Math.max(v, 0), 1) * 100));
-      label.textContent = `Ridicăm panourile… ${shown}%`;
+      label.textContent = `${shown}%`;
       el.style.setProperty('--p', `${shown}%`);
     },
     done() {

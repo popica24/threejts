@@ -110,10 +110,19 @@
 .tile:hover { transform: translateY(-4px); background: #fff; }
 .tile h3 { margin: 0 0 6px; font-size: 17px; color: var(--navy-deep); }
 .tile p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+.tile__media { margin: -18px -18px 14px; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 16px 16px 0 0; background: var(--navy); }
+.tile__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+.tile:hover .tile__media img { transform: scale(1.05); }
+.tile__media.img-fallback { background: var(--navy) url('/img/logo-jts.png') center / 40% no-repeat; }
+.tile__media.img-fallback img { visibility: hidden; }
+.tile--project { overflow: hidden; }
 .tile__meta { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); }
 .tile--claim h3::before { content: ''; display: block; width: 26px; height: 26px; margin-bottom: 12px; border-radius: 50%; background: radial-gradient(circle, var(--sun) 45%, transparent 47%), conic-gradient(from 0deg, var(--sun) 0 8%, transparent 0 17%, var(--sun) 0 25%, transparent 0 33%, var(--sun) 0 42%, transparent 0 50%, var(--sun) 0 58%, transparent 0 67%, var(--sun) 0 75%, transparent 0 83%, var(--sun) 0 92%, transparent 0); }
-.projects { display: grid; gap: 10px; margin-top: 12px; }
+.projects { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.tile--project:first-child { grid-column: 1 / -1; }
+.tile--project:first-child .tile__media { aspect-ratio: 21 / 9; }
 .tile--project { padding: 14px 18px; }
+.tile--project .tile__media { margin: -14px -18px 12px; }
 .tile--project:first-child { grid-column: 1 / -1; background: var(--navy); }
 .tile--project:first-child h3, .tile--project:first-child p, .tile--project:first-child .tile__meta { color: var(--paper); }
 .tile--project:first-child .tile__meta { color: var(--sun); }
@@ -131,19 +140,140 @@
 .footer { width: min(640px, 100%); padding: 22px 0 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35); }
 .footer p { margin: 0; }
 
-@media (max-width: 760px) {
-  .chapter { justify-content: stretch !important; }
-  .panel { top: auto; bottom: 16px; margin: 55vh 0 16px; position: sticky; align-self: flex-end; }
-  .chapter--hero .panel { margin: 0; }
-  .chapter--hero::before {
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255, 240, 228, 0) 22%, rgba(255, 240, 228, 0.86) 52%, rgba(255, 240, 228, 0.7) 100%);
+/* ---------------------------------------------------------------- phones & portrait tablets
+   The 3D scene owns the top of the screen; each chapter's text is a compact sheet pinned to the bottom. */
+@media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {
+  .chapter, .chapter--casa, .chapter--stocare, .chapter--dece { justify-content: center; padding: 0 12px; }
+  .panel,
+  .chapter--scala .panel,
+  .chapter--contact .panel {
+    position: sticky;
+    top: auto;
+    bottom: 12px;
+    align-self: flex-end;
+    width: min(600px, 100%);
+    margin: 58vh auto 12px;
+    padding: 18px 18px 16px;
+    border-radius: 20px;
   }
-  .chapter--scala .panel, .chapter--contact .panel { margin-top: 30vh; }
-  .cards--split, .tiles, .contact { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: repeat(2, 1fr); }
-  .chapter--montaj .step { padding: 8px 10px; }
-  .chapter--montaj .step p { display: none; }
+  .kicker { margin-bottom: 8px; font-size: 10.5px; }
+  .title { font-size: clamp(24px, 6.6vw, 34px); margin-bottom: 8px; }
+  .lead { font-size: 14.5px; line-height: 1.5; margin-bottom: 6px; }
+
+  /* Hero: sunrise on top, copy at the bottom */
+  .chapter--hero { align-items: flex-end; }
+  .chapter--hero .panel { position: relative; bottom: auto; margin: 0 auto; padding: 0 4px 28px; width: 100%; }
+  .chapter--hero::before {
+    inset: 0 0 -30vh 0;
+    background: linear-gradient(180deg, rgba(255, 240, 228, 0) 22%, rgba(255, 240, 228, 0.82) 45%, rgba(255, 240, 228, 0.88) 72%, rgba(255, 240, 228, 0) 100%);
+  }
+  .title--hero { font-size: clamp(36px, 10.4vw, 64px); }
+  .actions { margin: 16px 0 0; gap: 8px; }
+  .actions .btn { padding: 12px 18px; font-size: 14px; }
+  .badges { flex-wrap: nowrap; overflow-x: auto; margin: 14px -16px 0; padding: 0 16px; scrollbar-width: none; }
+  .badges::-webkit-scrollbar { display: none; }
+  .badges li { flex: 0 0 auto; padding: 8px 12px; font-size: 12px; }
+
+  /* Casa: the photo becomes a slim strip */
+  .chapter--casa .card__media { aspect-ratio: 16 / 7; }
+  .chapter--casa .card figcaption { display: none; }
+  .cards { margin-top: 12px; }
+
+  /* Montaj: one-row stepper; only the active step expands */
+  .chapter--montaj .lead { display: none; }
+  /* Montaj: a row of five step dots, the active step's text full-width underneath.
+     li is display:contents so its number and text become cells of the .steps grid. */
+  .steps { display: grid; grid-template-columns: repeat(5, 32px) 1fr; gap: 10px 8px; margin-top: 12px; align-items: center; }
+  .step { display: contents; }
+  .step__n { height: 32px; opacity: 0.45; transition: opacity 0.3s, box-shadow 0.3s; }
+  .step.is-past .step__n { opacity: 0.85; }
+  .step.is-active .step__n { opacity: 1; box-shadow: 0 0 0 4px rgba(245, 194, 27, 0.35); }
+  .step > div { display: none; }
+  .step.is-active > div {
+    display: block;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.75);
+  }
+  .step h3 { font-size: 15px; margin: 0 0 2px; }
+  .step p { font-size: 12.5px; }
+
+  /* Stocare: day / evening as two compact tiles (photo hidden, caption kept) */
+  .cards--split { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .chapter--stocare .card__media { display: none; }
+  .chapter--stocare .card, .chapter--stocare .tile { padding: 0; border-radius: 14px; }
+  .chapter--stocare .tile { padding: 12px; }
+  .chapter--stocare .card figcaption { padding: 12px; }
+  .tile h3 { font-size: 15px; margin-bottom: 4px; }
+  .tile p, .card figcaption { font-size: 12.5px; line-height: 1.45; }
+
+  /* Scala: solutions + projects in one swipe row, photos in a thumb strip */
+  .chapter--scala .lead { display: none; }
+  .works {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    align-items: flex-start;
+    margin: 12px -18px 0;
+    padding: 0 18px 4px;
+    scrollbar-width: none;
+  }
+  .works::-webkit-scrollbar, .gallery::-webkit-scrollbar { display: none; }
+  .works .tiles, .works .projects { display: contents; }
+  .works .tile { flex: 0 0 78%; scroll-snap-align: start; margin: 0; }
+  .tile__media { margin: -12px -12px 10px; aspect-ratio: 16 / 7; border-radius: 12px 12px 0 0; }
+  .tile--project:first-child { grid-column: auto; }
+  .gallery {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin: 10px -18px 0;
+    padding: 0 18px;
+    scrollbar-width: none;
+  }
+  .card--gallery { flex: 0 0 92px; border-radius: 12px; }
+  .card--gallery figcaption { display: none; }
+
+  /* De ce: 2×2 claims, no icons */
+  .chapter--dece .lead { font-size: 13.5px; }
+  .tiles { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .tile { padding: 12px; }
+  .tile--claim h3::before { display: none; }
+
+  /* Contact */
+  .chapter--contact { align-items: stretch; }
+  .chapter--contact .actions { margin: 12px 0; }
+  .btn--big { padding: 16px 26px; font-size: 16px; }
+  .contact { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 0; }
+  .contact div { padding: 12px; }
+  .contact div:last-child { grid-column: 1 / -1; }
+  .contact dd { font-size: 14px; }
+  .footer { width: min(600px, 100%); margin: 0 auto; padding: 10px 4px 20px; font-size: 11.5px; }
+
   .brand img { height: 38px; }
-  .chapter--casa .cards, .chapter--stocare .card { display: none; }
+}
+
+/* Landscape phones: short screens get a slimmer side card */
+@media (max-height: 520px) and (orientation: landscape) {
+  .panel { top: 64px; margin: 64px 0 12px; width: min(400px, 48vw); padding: 16px; }
+  .chapter--hero .panel { width: min(560px, 60vw); }
+  .title { font-size: 22px; margin-bottom: 6px; }
+  .title--hero { font-size: 34px; }
+  .lead { font-size: 13px; margin-bottom: 4px; }
+  .chapter--montaj .lead, .chapter--scala .lead, .chapter--dece .lead { display: none; }
+  .badges, .cards, .gallery, .tile__media, .tile--claim h3::before { display: none; }
+  .step { padding: 4px 8px; }
+  .step p { display: none; }
+  .step h3 { font-size: 14px; margin: 0; }
+  .tiles, .projects { gap: 6px; margin-top: 8px; }
+  .tile { padding: 10px; }
+  .tile p { display: none; }
+  .contact { grid-template-columns: 1fr 1fr 1fr; margin-top: 8px; }
+  .contact div { padding: 8px; }
+  .actions { margin: 10px 0; }
+  .topbar { padding: 10px var(--gutter); }
+  .brand img { height: 34px; }
 }

@@ -111,3 +111,13 @@ a { color: inherit; }
 .btn--small { padding: 10px 18px; font-size: 14px; }
 .btn--big { padding: 20px 34px; font-size: 18px; }
 :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+
+/* Phones skip the post-processing pass; a CSS vignette keeps the cinematic edge. */
+html[data-quality='low'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(10, 22, 38, 0.3) 100%);
+}

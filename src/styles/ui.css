@@ -19,7 +19,7 @@
   border-radius: 2px;
   background: rgba(255, 255, 255, 0.45);
 }
-.rail__fill { background: var(--sun); transform-origin: top; transform: scaleY(0); }
+.rail__fill { background: var(--sun); transform-origin: top; transform: scaleY(var(--p, 0)); }
 .rail__mark {
   position: relative;
   width: 12px;
@@ -49,7 +49,14 @@
   transition: opacity 0.3s, transform 0.4s var(--ease);
 }
 .rail__mark:hover .rail__label, .rail__mark:focus-visible .rail__label { opacity: 1; transform: translate(0, -50%); }
-@media (max-width: 760px) { .rail { display: none; } }
+/* Phones & portrait tablets: the rail becomes a thin progress bar along the top edge. */
+@media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {
+  .rail { inset: 0 0 auto 0; transform: none; height: 3px; padding: 0; display: block; }
+  .rail::before, .rail__fill { inset: 0; width: auto; height: 3px; border-radius: 0; }
+  .rail::before { background: rgba(255, 255, 255, 0.35); }
+  .rail__fill { transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .rail__mark { display: none; }
+}
 
 /* Custom cursor (desktop only; html.has-cursor is set by initCursor) */
 .cursor {

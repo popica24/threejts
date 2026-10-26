@@ -63,8 +63,9 @@ export function createSky(scene, quality) {
   scene.add(hemi);
 
   const sun = new DirectionalLight('#fff', 2.5);
-  sun.castShadow = quality === 'high';
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.castShadow = true;
+  const map = quality === 'high' ? 2048 : 1024;
+  sun.shadow.mapSize.set(map, map);
   Object.assign(sun.shadow.camera, { left: -32, right: 32, top: 32, bottom: -32, near: 1, far: 400 });
   sun.shadow.bias = -0.0004;
   sun.shadow.normalBias = 0.04;

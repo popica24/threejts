@@ -9,14 +9,14 @@ const process = [
 ];
 
 const projects = [
-  { name: 'Șantierul Naval Constanța', place: 'Proiect reprezentativ · Portul Constanța', text: 'Cel mai mare proiect JTS, cu structură adaptată pentru acoperișuri plane și de tip dom.' },
-  { name: 'Auchan Bradu și Găvana', place: 'Pitești', text: 'Două hipermarketuri, montaj cu orientare est-vest, fără perforarea acoperișului.' },
-  { name: 'Auchan Baia Mare și Satu Mare', place: 'Baia Mare și Satu Mare', text: 'Sistem de montaj ales pentru a păstra intactă hidroizolația acoperișului tip membrană.' },
-  { name: 'Secom', place: 'Turnu Măgurele', text: 'Cinci locații, execuție cu echipă proprie, inclusiv fundații forate acolo unde terenul a cerut-o.' },
-  { name: 'Solar Ocean Fish', place: 'București', text: 'Sistem montat pe acoperișul clădirii, executat în timpul iernii.' },
+  { name: 'Șantierul Naval Constanța', img: '/img/proj-santier.jpg', alt: 'Vedere aeriană: sistemul fotovoltaic executat de JTS SOLAR la Șantierul Naval Constanța', place: 'Proiect reprezentativ · Portul Constanța', text: 'Cel mai mare proiect JTS, cu structură adaptată pentru acoperișuri plane și de tip dom.' },
+  { name: 'Auchan Bradu și Găvana', img: '/img/proj-auchan-pitesti.jpg', alt: 'Proiect fotovoltaic JTS SOLAR — Auchan Bradu și Găvana', place: 'Pitești', text: 'Două hipermarketuri, montaj cu orientare est-vest, fără perforarea acoperișului.' },
+  { name: 'Auchan Baia Mare și Satu Mare', img: '/img/proj-auchan-baia-mare.jpg', alt: 'Proiect fotovoltaic JTS SOLAR — Auchan Baia Mare și Satu Mare', place: 'Baia Mare și Satu Mare', text: 'Sistem de montaj ales pentru a păstra intactă hidroizolația acoperișului tip membrană.' },
+  { name: 'Secom', img: '/img/proj-secom.jpg', alt: 'Proiect fotovoltaic JTS SOLAR — Secom', place: 'Turnu Măgurele', text: 'Cinci locații, execuție cu echipă proprie, inclusiv fundații forate acolo unde terenul a cerut-o.' },
+  { name: 'Solar Ocean Fish', img: '/img/proj-solar-ocean-fish.jpg', alt: 'Proiect fotovoltaic JTS SOLAR — Solar Ocean Fish', place: 'București', text: 'Sistem montat pe acoperișul clădirii, executat în timpul iernii.' },
 ];
 
-// Photos from the site's "Din teren" gallery, with the site's own alt texts.
+// Project photos are matched by the site's own alt texts. Photos from the site's "Din teren" gallery, with the site's own alt texts.
 const gallery = [
   { img: '/img/r11.webp', alt: 'Panouri fotovoltaice montate de JTS pe acoperișul din țiglă al unei case, cu dealuri în fundal' },
   { img: '/img/p336.webp', alt: 'Panouri fotovoltaice JTS pe un acoperiș plat' },
@@ -36,6 +36,7 @@ const claims = [
 const contact = {
   phones: ['0771 504 694', '0752 080 807'],
   emails: ['contact@jtssolar.ro', 'oferte@jtssolar.ro'],
+  addressLabel: 'Showroom / punct de lucru',
   address: 'DN65B, 117141 Geamăna, Argeș',
 };
 
@@ -44,6 +45,7 @@ const hero = {
   title: 'Mai multă energie de la soare. Mai puțină din rețea.',
   lead: 'Proiectăm și montăm sisteme fotovoltaice, cu sau fără baterie, pentru case, firme și industrie. Lucrăm cu echipele noastre de montatori și electricieni, oriunde în țară.',
   cta: 'Solicitați o ofertă',
+  tour: 'Vedeți cum lucrăm',
 };
 
 const chapters = [
@@ -62,11 +64,11 @@ const chapters = [
     body: ['Bateria păstrează ce produc panourile în timpul zilei, pentru a folosi energia seara.'],
     items: [
       { title: 'Ziua', text: 'Panourile produc. Casa consumă direct, iar surplusul încarcă bateria.' },
-      { title: 'Seara', text: 'Bateria alimentează casa. Rețeaua acoperă consumul pe care bateria nu îl poate susține.', img: '/img/b01.webp' },
+      { title: 'Seara', text: 'Bateria alimentează casa. Rețeaua acoperă consumul pe care bateria nu îl poate susține.', img: '/img/b01.webp', alt: 'Invertor hibrid, tablouri de protecție și baterie montate de JTS' },
     ],
   },
   {
-    id: 'scala', kicker: 'Comercial · Industrial', title: 'Lucrări executate de echipele JTS SOLAR.',
+    id: 'scala', kicker: 'Proiecte', title: 'Lucrări executate de echipele JTS SOLAR.',
     body: ['Lucrări reale, montate de oamenii noștri, pe case, firme și hale din toată țara.'],
     items: [
       { title: 'Comercial', text: 'Costul energiei, sub controlul firmei. Producție ziua, când firma consumă. Pe acoperiș sau pe sol, cu ofertă defalcată pe poziții.' },

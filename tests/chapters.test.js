@@ -39,6 +39,12 @@ describe('renderChapters', () => {
     expect(hrefs).toContain('tel:0752080807');
   });
 
+  it('groups the solutions and projects in one swipeable row container', () => {
+    renderChapters(root, content, credit);
+    const works = root.querySelector('[data-chapter="scala"] .works');
+    expect(works.querySelectorAll('.tile').length).toBe(2 + content.projects.length);
+  });
+
   it('falls back to a branded placeholder when a photo fails', () => {
     renderChapters(root, content, credit);
     const img = root.querySelector('.card img');

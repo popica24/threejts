@@ -16,7 +16,7 @@ const tel = (phone) => `tel:${phone.replace(/\s/g, '')}`;
 
 function photoCard({ img, alt, title, text }, cls = '') {
   const image = h('img', { src: img, alt: alt ?? text ?? title ?? '', loading: 'lazy', decoding: 'async' });
-  const card = h('figure', { class: `card ${cls}`.trim(), dataCursor: 'JTS' },
+  const card = h('figure', { class: `card ${cls}`.trim() },
     h('div', { class: 'card__media' }, image),
     title || text ? h('figcaption', {}, title && h('strong', {}, title), text && h('span', {}, text)) : null,
   );
@@ -24,8 +24,11 @@ function photoCard({ img, alt, title, text }, cls = '') {
   return card;
 }
 
-function textCard({ title, text, place }, cls = 'tile') {
+function textCard({ title, text, place, img, alt }, cls = 'tile') {
+  const media = img && h('div', { class: 'tile__media' }, h('img', { src: img, alt: alt ?? title, loading: 'lazy', decoding: 'async' }));
+  if (media) media.firstChild.addEventListener('error', () => media.classList.add('img-fallback'), { once: true });
   return h('article', { class: cls },
+    media,
     place && h('span', { class: 'tile__meta' }, place),
     h('h3', {}, title),
     h('p', {}, text),
@@ -47,8 +50,8 @@ const builders = {
       h('h1', { class: 'title title--hero', dataReveal: '' }, ch.title),
       h('p', { class: 'lead' }, ch.body[0]),
       h('div', { class: 'actions' },
-        h('a', { class: 'btn btn--primary', href: '#contact', dataMagnetic: '', dataCursor: 'Ofertă' }, c.hero.cta),
-        h('a', { class: 'btn btn--ghost', href: '#casa', dataMagnetic: '' }, 'Începeți turul ↓'),
+        h('a', { class: 'btn btn--primary', href: '#contact', dataMagnetic: '' }, c.hero.cta),
+        h('a', { class: 'btn btn--ghost', href: '#montaj', dataMagnetic: '' }, c.hero.tour),
       ),
       h('ul', { class: 'badges' }, c.claims.slice(0, 3).map((k) => h('li', {}, h('strong', {}, k.title), h('span', {}, k.text)))),
     ];
@@ -65,20 +68,23 @@ const builders = {
     ch.items.map((i) => (i.img ? photoCard(i) : textCard(i))))],
   scala: (ch, c) => [
     ...header(ch),
-    h('div', { class: 'tiles' }, ch.items.map((i) => textCard(i))),
-    h('div', { class: 'projects' }, c.projects.map((p) => textCard({ title: p.name, text: p.text, place: p.place }, 'tile tile--project'))),
+    // One container so phones can show solutions + projects as a single swipe row.
+    h('div', { class: 'works' },
+      h('div', { class: 'tiles' }, ch.items.map((i) => textCard(i))),
+      h('div', { class: 'projects' }, c.projects.map((p) => textCard({ title: p.name, text: p.text, place: p.place, img: p.img, alt: p.alt }, 'tile tile--project'))),
+    ),
     h('div', { class: 'gallery' }, c.gallery.map((g) => photoCard(g, 'card--gallery'))),
   ],
   dece: (ch, c) => [...header(ch), h('div', { class: 'tiles tiles--claims' }, c.claims.map((k) => textCard(k, 'tile tile--claim')))],
   contact: (ch, c) => [
     ...header(ch),
     h('div', { class: 'actions' },
-      h('a', { class: 'btn btn--primary btn--big', href: `mailto:${c.contact.emails[1]}`, dataMagnetic: '', dataCursor: 'Scrieți-ne' }, 'Solicitați o ofertă'),
+      h('a', { class: 'btn btn--primary btn--big', href: `mailto:${c.contact.emails[1]}`, dataMagnetic: '' }, c.hero.cta),
     ),
     h('dl', { class: 'contact' },
       h('div', {}, h('dt', {}, 'Telefon'), h('dd', {}, c.contact.phones.map((p) => h('a', { href: tel(p), dataMagnetic: '' }, p)))),
       h('div', {}, h('dt', {}, 'Email'), h('dd', {}, c.contact.emails.map((e) => h('a', { href: `mailto:${e}` }, e)))),
-      h('div', {}, h('dt', {}, 'Showroom'), h('dd', {}, c.contact.address)),
+      h('div', {}, h('dt', {}, c.contact.addressLabel), h('dd', {}, c.contact.address)),
     ),
   ],
 };

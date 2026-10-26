@@ -2,8 +2,8 @@
 import { chapterAt } from '../scroll/progress.js';
 
 const LABELS = {
-  hero: 'Răsărit', casa: 'Casa', montaj: 'Montaj', stocare: 'Stocare',
-  scala: 'Proiecte', dece: 'De ce JTS', contact: 'Contact',
+  hero: 'Răsărit', casa: 'Rezidențial', montaj: 'Montăm', stocare: 'Stocare',
+  scala: 'Proiecte', dece: 'De ce JTS SOLAR', contact: 'Contact',
 };
 
 export function createRail(el, scroller) {
@@ -24,7 +24,7 @@ export function createRail(el, scroller) {
   let current = null;
   return {
     update(p) {
-      fill.style.transform = `scaleY(${p})`;
+      el.style.setProperty('--p', p.toFixed(4));
       const id = chapterAt(p);
       if (id === current) return;
       current = id;
