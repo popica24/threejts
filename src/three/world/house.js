@@ -8,6 +8,23 @@ export const HOUSE = { w: 12, d: 8, wallH: 4.2, rise: 3.4, overhang: 0.7 };
 const PITCH = Math.atan2(HOUSE.rise, HOUSE.d / 2);
 const RIDGE_Y = HOUSE.wallH + HOUSE.rise;
 
+// Front roof slope frame for the panels (surface plane, slightly above the tiles). Pure.
+export function roofFrame() {
+  const { d, rise, overhang } = HOUSE;
+  const right = new Vector3(1, 0, 0);
+  const down = new Vector3(0, -Math.sin(PITCH), Math.cos(PITCH));
+  const normal = new Vector3(0, Math.cos(PITCH), Math.sin(PITCH));
+  const slopeLen = Math.hypot(d / 2, rise) + overhang;
+  return {
+    origin: new Vector3(-5.2, RIDGE_Y, 0).addScaledVector(down, 0.45).addScaledVector(normal, 0.16),
+    right, down, normal,
+    width: 10.4,
+    height: Math.hypot(d / 2, rise) - 0.45,
+    eave: new Vector3(0, RIDGE_Y, 0).addScaledVector(down, slopeLen),
+    pitch: PITCH,
+  };
+}
+
 function tileTexture() {
   const c = document.createElement('canvas');
   c.width = c.height = 256;
@@ -145,18 +162,7 @@ export function createHouse(scene) {
 
   scene.add(g);
 
-  // Front roof slope frame for the panels (surface plane, slightly above the tiles).
-  const right = new Vector3(1, 0, 0);
-  const down = new Vector3(0, -Math.sin(PITCH), Math.cos(PITCH));
-  const normal = new Vector3(0, Math.cos(PITCH), Math.sin(PITCH));
-  const roof = {
-    origin: new Vector3(-5.2, RIDGE_Y, 0).addScaledVector(down, 0.45).addScaledVector(normal, 0.16),
-    right, down, normal,
-    width: 10.4,
-    height: Math.hypot(d / 2, rise) - 0.45,
-    eave: eave.clone(),
-    pitch: PITCH,
-  };
+  const roof = roofFrame();
 
   return {
     group: g,

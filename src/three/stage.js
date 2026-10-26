@@ -8,6 +8,7 @@ import { createTerrain } from './world/terrain.js';
 import { createParticles } from './world/particles.js';
 import { createHouse } from './world/house.js';
 import { createPanels } from './world/panels.js';
+import { createCrew } from './world/crew.js';
 
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r()));
 
@@ -24,6 +25,7 @@ export async function createStage(canvas, quality, { getProgress, onLoad = () =>
     () => createTerrain(scene, quality),
     () => (world.house = createHouse(scene)),
     () => (world.panels = createPanels(scene, world.house.roof)),
+    () => (world.crew = createCrew(scene, quality, { slots: world.panels.slots, panels: world.panels })),
     () => createParticles(scene, quality),
   ];
   const modules = [];

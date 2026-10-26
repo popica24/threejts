@@ -6,9 +6,9 @@ import { clamp01, easeInOut } from '../scroll/progress.js';
 export const CAMERA_KEYS = [
   { p: 0.0, pos: [6, 26, 78], look: [22, 24, -140] }, // dawn over the hills
   { p: 0.1, pos: [26, 13, 38], look: [0, 4, 0] },      // glide down to the house
-  { p: 0.22, pos: [17, 9, 22], look: [0, 5, 0] },      // the crew arrives
-  { p: 0.36, pos: [10, 12.5, 16], look: [0, 5.5, 0] }, // panels going up
-  { p: 0.5, pos: [-4, 11, 19], look: [0, 5, 0] },      // finished roof
+  { p: 0.22, pos: [27, 9, 31], look: [-2, 3.5, 3] },   // the crew arrives
+  { p: 0.36, pos: [18, 13.5, 25], look: [-4, 4.5, 1] }, // panels going up
+  { p: 0.5, pos: [8, 12, 26], look: [-2, 4.5, 0] },    // finished roof
   { p: 0.56, pos: [-17, 5, 13], look: [-3, 3, 0] },    // inverter + battery wall
   { p: 0.62, pos: [-6, 22, 46], look: [30, 2, -20] },  // rising up
   { p: 0.7, pos: [48, 34, 46], look: [100, 0, -40] },  // commercial & industrial

@@ -12,7 +12,7 @@ describe('sampleCamera', () => {
   });
 
   it('is close to the house while the panels go up', () => {
-    expect(sampleCamera(mid(CHAPTER_RANGES.montaj)).pos.length()).toBeLessThan(25);
+    expect(sampleCamera(mid(CHAPTER_RANGES.montaj)).pos.length()).toBeLessThan(40);
   });
 
   it('looks over the industrial site in the projects chapter', () => {
